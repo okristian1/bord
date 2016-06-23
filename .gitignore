@@ -63,6 +63,3 @@ target/
 .ipynb_checkpoints
 
 # Secrets
-config.py
-
-
