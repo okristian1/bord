@@ -23,7 +23,7 @@
  form input#name,
  form input#email,
  form input#subject {
-   width: 400px;
+   width: 100%;
    background-color: #fafafa;
    -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
@@ -34,7 +34,7 @@
  }
 
  form textarea#message {
-   width: 500px;
+   width: 100%;
    height: 100px;
    background-color: #fafafa;
    -webkit-border-radius: 3px;
