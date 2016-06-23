@@ -7,6 +7,11 @@ app = Flask(__name__)
 app.secret_key = 'development'
 
 
+@app.route('/kontakt')
+def kontakt():
+    return render_template("kontakt.html")
+
+
 @app.route('/')
 def my_form():
     return render_template("dev.html")
@@ -61,11 +66,11 @@ def read_from_db(b_start, b_end, date, restaurant):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute("""
-    SELECT * FROM reservations WHERE ddate LIKE ? AND table_id LIKE ? AND NOT (? BETWEEN starting AND ending)
-    """, (date, restaurant, b_start))
-#    UNION
-#    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
-#(starting >= ? OR ending <= ?)
+    SELECT table_id FROM reservations WHERE ddate LIKE ? AND table_id LIKE ? AND NOT (? BETWEEN starting AND ending)
+    UNION
+    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
+
+    """, (date, restaurant, b_start, restaurant, date))
 
 
     data = c.fetchall()

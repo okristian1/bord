@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Development Center</title>
+  <title>Bordfinneren</title>
 
   <!-- Bootstrap Core CSS -->
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
@@ -67,7 +67,7 @@
 <!-- Displays available restaurants after search query. -->
 {% if restaurants %}
 <br><br><br>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div>
         <h2 class="text-center">Restauranter i Trondheim med ledig bord</h2>
@@ -147,7 +147,7 @@
 
 <body id="page-top">
   <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -156,7 +156,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand page-scroll" href="#page-top">Under Utvikling</a>
+        <a class="navbar-brand page-scroll" href="#page-top">BETA</a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -166,7 +166,7 @@
             <a class="page-scroll" href="#om">Om siden</a>
           </li>
           <li>
-            <a class="page-scroll" href="#kontakt">Kontakt</a>
+            <a class="page-scroll" href="/kontakt">Kontakt</a>
           </li>
         </ul>
       </div>
@@ -176,10 +176,11 @@
 <header id="header">
   <div class="header-content">
     <div class="header-content-inner">
-      <h1>Bordfinnern</h1>
+      <h1>Bordfinneren</h1>
       <hr>
       <p style="color:white;">Her kan du enkelt finne ut hvilke restauranter i Trondheim som har ledig bord.</p>
     </div>
+    <a href="#gimmefood" class="btn btn-primary btn-xl page-scroll">Les mer</a>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul class=flashes>
@@ -194,60 +195,57 @@
   </div>
   </header>
 
-<section id="derps">
+<section id="gimmefood">
 
-  <header id="header2">
-    <div class="header-content">
-      <div class="header-content-inner">
-        <h3 style="color:black;">Her kan du enkelt finne ut hvilke restauranter i Trondheim som har ledig bord.</p>
+<div class="container text-center">
+        <h3 style="color:black;">Velg dato, klokkeslett, hvor lenge du ønsker bordet og antall personer.</p>
       </div>
-    </div>
-    </header>
+      <hr>
 
-<br><br><br><br>
-
+<br>
   <div id="finnbord" class='col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1'>
     <form action="." method="POST">
       <div class='input-group date center-block' id='datetimepicker'>
         <input type='hidden' name="selected_dt" class="form-control text-center" placeholder="Velg dato og tidspunkt" required/>
       </div>
-      <br<br>
+      <br>
+      <hr class="long">
           <div class="row">
             <div class="col-xs-12 col-lg-6 text-center center-block">
-              <h2 class="text-center">Timer</h2>
+              <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
               <div class="input-group">
                 <span class="input-group-btn">
                   <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner" data-toggle="spinner">
-                    <span class="glyphicon glyphicon-minus"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
                   </button>
                 </span>
                 <input type="text" name="sit_time" data-ride="spinner" id="spinner" class="form-control input-number text-center" value="2">
                 <span class="input-group-btn">
                   <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner" data-toggle="spinner">
-                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="glyphicon glyphicon-chevron-up"></span>
                   </button>
                 </div>
                 </div>
                 <div class="col-xs-12 col-lg-6 text-center center-block">
-                  <h2 class="text-center">Gjester</h2>
+                  <h3 class="text-center"><span class="glyphicon glyphicon-user"><br>Antall</span></h3>
                   <div class="input-group">
                     <span class="input-group-btn">
                       <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner2" data-toggle="spinner">
-                        <span class="glyphicon glyphicon-minus"></span>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
                       </button>
                     </span>
                     <input type="text" name="guests" data-ride="spinner" id="spinner2" class="form-control input-number text-center" value="4">
                     <span class="input-group-btn">
                       <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner2" data-toggle="spinner">
-                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-chevron-up"></span>
                       </button>
                     </div>
                     </div>
                 </div>
-                <br><br>
-
+                <br><br><br>
+                <hr class="long">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                <input id="search" type="submit" class="btn btn-primary btn-xl btn_search" value="Søk">
+                <input id="search" type="submit" class="btn btn-primary btn-xl btn_search" name="gimme_restaurants" value="Søk">
              </div>
            </div>
 </section>
@@ -259,65 +257,42 @@
                   <br>
                   <h2 class="section-heading">Litt informasjon om nettsiden</h2>
                   <hr class="primary">
+                  <br><br>
                 </div>
               </div>
               <div class="row">
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-4 col-md-6 text-center">
                   <div class="service-box">
                     <i class="fa fa-4x fa-magic wow bounceIn text-primary" data-wow-delay=".2s"></i>
                     <h3>Hvordan fungerer det?</h3>
                     <p class="text-muted">Vi sjekker flere av byens populære restauranter og gir deg en liste over de med ledig plass.</p>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-4 col-md-6 text-center">
                   <div class="service-box">
-                    <i class="fa fa-4x fa-thumbs-up wow bounceIn text-primary" data-wow-delay=".1s"></i>
-                    <h3>Er det trygt?</h3>
-                    <p class="text-muted">Du reserverer direkte til restauranten som om du var på deres nettsider</p>
+                    <i class="fa fa-4x fa-binoculars wow bounceIn text-primary" data-wow-delay=".3s"></i>
+                    <h3>Manglende restaurant!</h3>
+                    <p class="text-muted">Hvis du savner er restaurant kan du gjerne sende meg en beskjed. Så skal jeg se hva jeg kan gjøre.<a href="/kontakt">Ta kontakt</a></p>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
+                <div class="col-lg-4 col-md-6 text-center">
                   <div class="service-box">
                     <i class="fa fa-4x fa-question   wow bounceIn text-primary"></i>
                     <h3>Hva er poenget?</h3>
                     <p class="text-muted">På et øyeblikk kan finne mange ledige restauranter uten å måtte ringe eller besøke nettsiden til hver enkelt restaurant.</p>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                  <div class="service-box">
-                    <i class="fa fa-4x fa-binoculars wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                    <h3>Manglende restaurant!</h3>
-                    <p class="text-muted">Vi forløpig ikke et samarbeid med absolutt alle restauranter i Trondheim. Du kan du finne en liste over flere restauranter her.</p>
-                  </div>
-                </div>
               </div>
           </section>
 
-          <section id="kontakt">
-            <div>
-              <div>
-                <div class="col-lg-4">
-                </div>
-                <div class="col-lg-4 form-group text-center">
-                  <h2>Kontakt</h2>
-                  <hr class="primary">
-                  <form>
-                    <br>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Din epost</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="E-post">
-                    </div>
-                    <div>
-                      <label for="text-area">Din forespørsel</label>
-                      <textarea class="form-control" id="text-area" placeholder="Tekst" rows="3"></textarea>
-                      <br>
-                      <button type="submit" class="btn btn-primary btn-xl">Send <span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
+
+<section id="footer">
+  <div class="container text-center">
+<a href="http://okristian1.github.io/okristian1/">Utviklet av Ole Kristian Skramstad</a>
+</div>
+</section>
+
+
 {% endif %}
               <script type="text/javascript">
               $(function () {

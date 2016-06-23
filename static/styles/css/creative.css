@@ -8,8 +8,9 @@
   color:black;
 }
 
+
 #om {
-  margin-top: 300px;
+  margin-top: 600px;
 }
 
 .btn {
@@ -60,6 +61,12 @@ hr.light {
     border-color: #fff;
 }
 
+hr.long {
+  max-width: 100%;
+  border-color: grey;
+}
+
+
 a {
     color:black;
     -webkit-transition: all .35s;
@@ -97,7 +104,7 @@ p {
 }
 
 section {
-    padding: 100px 0;
+    padding: 50px 0;
 }
 
 aside {
