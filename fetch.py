@@ -13,8 +13,11 @@ from time import mktime
 import codecs
 import sqlite3
 from flask_mail import Mail, Message
-from forms import ContactForm
 from config import *
+from forms import ContactForm
+from descriptions import *
+
+
 
 def get_info():
 

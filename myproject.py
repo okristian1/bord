@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from fetch import *
-from descriptions import *
 
 mail = Mail()
 
@@ -24,13 +23,21 @@ def contact():
 
   if request.method == 'POST':
     if form.validate() == False:
-      flash('Alle felter må fylles ut.')
+      flash('All fields are required.')
       return render_template('contact.html', form=form)
     else:
-      return 'Form posted.'
+      msg = Message(form.subject.data, sender='contact@example.com', recipients=['okristian1@gmail.com'])
+      msg.body = """
+      From: %s &lt;%s&gt;
+      %s
+      """ % (form.name.data, form.email.data, form.message.data)
+      mail.send(msg)
+
+      return render_template('contact.html', success=True)
 
   elif request.method == 'GET':
     return render_template('contact.html', form=form)
+
 
 @app.route('/')
 def my_form():
