@@ -12,7 +12,7 @@ def create_table():
     # MAKE TABLES FOR ALL THE RESTAURANTS
     c.execute("CREATE TABLE IF NOT EXISTS bord(table_id TEXT PRIMARY KEY)")
     # MAKE TABLE WHERE ALL RESERVATIONS ARE STORED. TABLE ID IS NOT UNIQUE HERE BECAUSE ONE TABLE CAN HAVE MULTIPLE RESERVATIONS
-    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, starting INTEGER, ending INTEGER, ddate INTEGER, pax INTEGER, customer TEXT )")
+    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, pax INTEGER, customer TEXT )")
 
     # SEMI AUTOMATIC ENTRY OF table_id FROM RESTAURANTS.
 def data_entry():
@@ -37,21 +37,27 @@ def add_new_reservations():
                     for g in reservation.get('TableNrs'):
                         while counter < len(reservation.get('TableNrs')):
                             restaurant = reservation.get('RestaurantName')
-                            starting = int(reservation.get('StartDateTime')[6:16]) + 7200
-                            ending = int(reservation.get('EndDateTime')[6:16]) + 7200
-                            ddate = datetime.fromtimestamp(int(starting)).strftime('%Y-%m-%d')
+
+                            start_temp = (reservation.get('StartDateTime')[6:16])
+
+                            db_booking_start = datetime.fromtimestamp(float(start_temp))
+
+                            end_temp = (reservation.get('EndDateTime')[6:16])
+
+                            db_booking_end = datetime.fromtimestamp(float(end_temp))
+
                             customer = reservation.get('CustomerName')
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            new_reservation = [table_id, starting, ending, pax, customer]
+                            new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
                             counter+=1
 
-                            c.execute("SELECT table_id FROM reservations WHERE table_id=? AND starting = ? AND ending = ? AND pax = ? AND customer = ?",(table_id, starting, ending, pax, customer))
+                            c.execute("SELECT table_id FROM reservations WHERE table_id=? AND db_booking_start = ? AND db_booking_end = ? AND pax = ? AND customer = ?",(table_id, db_booking_start, db_booking_end, pax, customer))
                             #create new reservation if reservation in check but not in database
                             data = c.fetchone()
                             if data is None:
                                 print ("Creating new reservation.")
-                                c.execute('''INSERT INTO reservations(table_id, starting, ending, ddate, pax, customer ) VALUES(?,?,?,?,?,?)''', (table_id, starting, ending, ddate, pax, customer))
+                                c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, pax, customer ) VALUES(?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, pax, customer))
 
                             else:
                                 print('Reservation found')
@@ -70,7 +76,7 @@ def delete_old():
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
 
-    c.execute('''SELECT table_id, starting, ending, ddate, pax, customer FROM reservations''')
+    c.execute('''SELECT table_id, db_booking_start, db_booking_end, pax, customer FROM reservations''')
     old = c.fetchall()
     new = []
 
@@ -83,14 +89,15 @@ def delete_old():
                     for g in reservation.get('TableNrs'):
                         while counter < len(reservation.get('TableNrs')):
                             restaurant = reservation.get('RestaurantName')
-                            starting = int(reservation.get('StartDateTime')[6:16]) + 7200
-                            ending = int(reservation.get('EndDateTime')[6:16]) + 7200
-                            ddate = datetime.fromtimestamp(int(starting)).strftime('%Y-%m-%d')
+                            start_temp = int(reservation.get('StartDateTime')[6:16]) + 7200
+                            db_booking_start = ((start_temp - datetime(1970, 1, 1)) / timedelta(seconds=1))
+                            end_temp = int(reservation.get('EndDateTime')[6:16]) + 7200
+                            db_booking_end = ((end_temp - datetime(1970, 1, 1)) / timedelta(seconds=1))
                             customer = reservation.get('CustomerName')
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            new_reservation = (table_id, starting, ending, ddate, pax, customer)
+                            new_reservation = (table_id, db_booking_start, db_booking_end, pax, customer)
                             new.append(new_reservation)
                             counter+=1
                 counter = 0
@@ -116,10 +123,10 @@ def delete_old():
 
 
 
-#create_table()
+create_table()
 #get_info()
 #data_entry()
-#add_new_reservations()
+add_new_reservations()
 #delete_old()
 #read_from_db(1461823200, 1461877200, '2016-04-28%', 'SpareBank 1%')
 

@@ -6,7 +6,7 @@ mail = Mail()
 
 
 app = Flask(__name__)
-app.secret_key = secret_key
+app.secret_key = 'Development'
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
@@ -23,14 +23,16 @@ def contact():
 
   if request.method == 'POST':
     if form.validate() == False:
-      flash('All fields are required.')
+      flash('Alle felter må fylles inn!')
       return render_template('contact.html', form=form)
     else:
       msg = Message(form.subject.data, sender='contact@example.com', recipients=['okristian1@gmail.com'])
       msg.body = """
-      From: %s &lt;%s&gt;
-      %s
-      """ % (form.name.data, form.email.data, form.message.data)
+      Melding fra %s
+      Epost: %s;
+      Emne: %s
+      Melding: %s
+      """ % (form.name.data, form.email.data, form.subject.data, form.message.data)
       mail.send(msg)
 
       return render_template('contact.html', success=True)
@@ -83,8 +85,7 @@ def my_form_post():
 
 
             elif restaurants == []:
-                flash('Ingen ledige restauranter')
-                return redirect(url_for('my_form_post'))
+                return render_template('oops.html')
 
 
             return render_template('dev.html', restaurants = restaurants)
@@ -95,11 +96,12 @@ def read_from_db(b_start, b_end, date, restaurant):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute("""
-    SELECT table_id FROM reservations WHERE ddate LIKE ? AND table_id LIKE ? AND NOT (? BETWEEN starting AND ending)
-    UNION
-    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
+    SELECT * FROM reservations WHERE table_id LIKE ? AND NOT (? BETWEEN db_booking_start AND db_booking_end)
+    """, (restaurant, b_start))
+#    UNION
+#    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
 
-    """, (date, restaurant, b_start, restaurant, date))
+# Bookings now found can be bookings that exist BEFORE selected time. How to fix?
 
 
     data = c.fetchall()

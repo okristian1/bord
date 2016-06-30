@@ -181,18 +181,6 @@
       <p style="color:white;">Her kan du enkelt finne ut hvilke restauranter i Trondheim som har ledig bord.</p>
     </div>
     <a href="#gimmefood" class="btn btn-primary btn-xl page-scroll">Les mer</a>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for message in messages %}
-          <h1><span class="glyphicon glyphicon-exclamation-sign" style="color:white;"></span></h1>
-          <h2 style="color:white;"> {{ message }}</h2>
-          <br>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-  </div>
   </header>
 
 <section id="gimmefood">

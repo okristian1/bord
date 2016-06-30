@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="container text-center">
+  <h1>Oisann</h1>
+  <p class="important">
+Oi, vi fant visst ingen ledige restauranter i Trondheim.<br><a href="/"> Klikk her om du vil prøve igjen.</a>
+</div>
+{% endblock %}

@@ -64,4 +64,20 @@
                   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
                   <![endif]-->
                 </head>
-<!-- Displays available restaurants after search query. -->
+
+  <body>
+    <div id="content">{% block content %}
+      {% endblock %}</div>
+
+
+    <div id="footer">
+      {% block footer %}
+      <section id="footer">
+        <div class="container">
+      <h4 class="text-center text-muted"><a href="http://okristian1.github.io/okristian1/">Utviklet av Ole Kristian Skramstad</a></h4>
+      </div>
+      </section>
+      {% endblock %}
+    </div>
+  </body>
+</html>
