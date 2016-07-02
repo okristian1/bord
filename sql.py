@@ -12,7 +12,7 @@ def create_table():
     # MAKE TABLES FOR ALL THE RESTAURANTS
     c.execute("CREATE TABLE IF NOT EXISTS bord(table_id TEXT PRIMARY KEY)")
     # MAKE TABLE WHERE ALL RESERVATIONS ARE STORED. TABLE ID IS NOT UNIQUE HERE BECAUSE ONE TABLE CAN HAVE MULTIPLE RESERVATIONS
-    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, pax INTEGER, customer TEXT )")
+    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
 
     # SEMI AUTOMATIC ENTRY OF table_id FROM RESTAURANTS.
 def data_entry():
@@ -46,6 +46,8 @@ def add_new_reservations():
 
                             db_booking_end = datetime.fromtimestamp(float(end_temp))
 
+                            db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
+
                             customer = reservation.get('CustomerName')
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
@@ -57,7 +59,7 @@ def add_new_reservations():
                             data = c.fetchone()
                             if data is None:
                                 print ("Creating new reservation.")
-                                c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, pax, customer ) VALUES(?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, pax, customer))
+                                c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer ) VALUES(?,?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer))
 
                             else:
                                 print('Reservation found')
