@@ -9,12 +9,9 @@ c = conn.cursor()
 
 
 def create_table():
-    # MAKE TABLES FOR ALL THE RESTAURANTS
     c.execute("CREATE TABLE IF NOT EXISTS bord(table_id TEXT PRIMARY KEY)")
-    # MAKE TABLE WHERE ALL RESERVATIONS ARE STORED. TABLE ID IS NOT UNIQUE HERE BECAUSE ONE TABLE CAN HAVE MULTIPLE RESERVATIONS
     c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
 
-    # SEMI AUTOMATIC ENTRY OF table_id FROM RESTAURANTS.
 def data_entry():
     restaurant = "SpareBank 1 "
     for i in range(200,202):
@@ -24,7 +21,8 @@ def data_entry():
 
     conn.commit()
 
-# MAIN FUNCTION FOR UPDATING THE DATABASE. ONLY INSERTS NEW ROW IF IT DOES NOT ALREADY EXIST
+
+# Fetches all existing reservations from bookatable server and creates a new entry if it does not already exsist.
 def add_new_reservations():
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
@@ -37,21 +35,16 @@ def add_new_reservations():
                     for g in reservation.get('TableNrs'):
                         while counter < len(reservation.get('TableNrs')):
                             restaurant = reservation.get('RestaurantName')
-
                             start_temp = (reservation.get('StartDateTime')[6:16])
-
                             db_booking_start = datetime.fromtimestamp(float(start_temp))
-
                             end_temp = (reservation.get('EndDateTime')[6:16])
-
                             db_booking_end = datetime.fromtimestamp(float(end_temp))
-
                             db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
-
                             customer = reservation.get('CustomerName')
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
                             new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
+                            print (new_reservation)
                             counter+=1
 
                             c.execute("SELECT table_id FROM reservations WHERE table_id=? AND db_booking_start = ? AND db_booking_end = ? AND pax = ? AND customer = ?",(table_id, db_booking_start, db_booking_end, pax, customer))
@@ -72,13 +65,14 @@ def add_new_reservations():
     conn.close()
 
 
+# Loops over all reservations in local database and deletes them if they are noe longer found in bookatables database.
 
 def delete_old():
 
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
 
-    c.execute('''SELECT table_id, db_booking_start, db_booking_end, pax, customer FROM reservations''')
+    c.execute('''SELECT table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer FROM reservations''')
     old = c.fetchall()
     new = []
 
@@ -91,19 +85,20 @@ def delete_old():
                     for g in reservation.get('TableNrs'):
                         while counter < len(reservation.get('TableNrs')):
                             restaurant = reservation.get('RestaurantName')
-                            start_temp = int(reservation.get('StartDateTime')[6:16]) + 7200
-                            db_booking_start = ((start_temp - datetime(1970, 1, 1)) / timedelta(seconds=1))
-                            end_temp = int(reservation.get('EndDateTime')[6:16]) + 7200
-                            db_booking_end = ((end_temp - datetime(1970, 1, 1)) / timedelta(seconds=1))
+                            start_temp = (reservation.get('StartDateTime')[6:16])
+                            db_booking_start = str(datetime.fromtimestamp(float(start_temp)))
+                            end_temp = (reservation.get('EndDateTime')[6:16])
+                            db_booking_end = str(datetime.fromtimestamp(float(end_temp)))
+                            db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
                             customer = reservation.get('CustomerName')
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            new_reservation = (table_id, db_booking_start, db_booking_end, pax, customer)
+                            new_reservation = (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer)
+                            print (db_booking_end)
+                            print (new_reservation)
                             new.append(new_reservation)
                             counter+=1
                 counter = 0
-
 
 
     c.execute('''SELECT id FROM reservations ORDER BY ROWID ASC LIMIT 1 ''')
@@ -128,8 +123,8 @@ def delete_old():
 create_table()
 #get_info()
 #data_entry()
-add_new_reservations()
-#delete_old()
+#add_new_reservations()
+delete_old()
 #read_from_db(1461823200, 1461877200, '2016-04-28%', 'SpareBank 1%')
 
 

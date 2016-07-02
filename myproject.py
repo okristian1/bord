@@ -96,9 +96,6 @@ def read_from_db(datetime, date, restaurant):
 #    UNION
 #    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
 
-# Bookings now found can be bookings that exist BEFORE selected time. How to fix?
-# Need to be able to select spesific dates again
-
 
     data = c.fetchall()
     for row in data:
