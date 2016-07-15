@@ -41,8 +41,6 @@ def get_info():
         #initialise reader
         reader = codecs.getreader("utf-8")
         # Store data in variables
-
-
         reservations_banksalen.append(json.load(reader(banksalen)))
         reservations_aisuma.append(json.load(reader(aisuma)))
         reservations_frati.append(json.load(reader(frati)))
