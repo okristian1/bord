@@ -1,10 +1,3 @@
-description_banksalen_short = "Kort beskrivelse"
-description_frati_short = "Kort beskrivelse"
-description_eld_short = "Kort beskrivelse"
-description_aisuma_short = "Kort beskrivelse"
-description_søstrenekarlsen_short = "Kort beskrivelse"
-description_una_short = "Kort beskrivelse"
-
 description_banksalen = "I det gamle bankbygget i Trondheim sentrum finner du Banksalen, lokalet for deg som skal arranger selskap. Vi står for serveringen, menyen bestemmer du. Og hvis du vil, hjelper vi gjerne til med organisering og planlegging."
 description_frati = "Frati er smaken av Italia - midt i Trondheim. I snart 40 år har den italienske restauranten servert velsmakende retter, og er kjent for sine fristende appetittvekkere, bedre middager og et bredt utvalg av gode viner. I den familiedrevede restauranten krydres gode råvarer med livsglede og trivelige mennesker. Gjestfriheten her er stor, og alt er lagt til rette for du kan senke skuldrene og nyte en kveld med god mat og godt selskap i en ekte italiensk restaurant."
 description_søstrenekarlsen = "Folk skaper stemning - og på Søstrene er vi veldig glad i folk - i alle typer folk. Du kan stikke innom når du vil, spise hvor mye eller lite du vil, drikke det du vil og kjenne på trivselsfølelsen. Hos oss er det ikke tellekanter og hvite duker. Hos oss er det ikke smått og pertentlig. Hos oss er det raust og lekent - både rundt matbordet og i baren! Velkommen innom!"

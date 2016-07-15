@@ -84,7 +84,7 @@
   <div class="col-lg-4 col-xs-12">
     <div class="portfolio-box-caption text-center">
             <div class="portfolio-box-caption-content">
-          <h2>  {{ i['name'] }} </h2>
+              <img src="{{ i['name'] }}">
           </div>
           <p><a href="tel:{{ i['number'] }}"><span class="glyphicon glyphicon-earphone"></span><br>{{ i['number'] }}</a></p>
           <div class="project-name">
@@ -108,9 +108,8 @@
               <!-- /.modal -->
 
           <p>
-          <span class="teaser">{{ i['description_short'] }}<br></span>
           <span class="complete"><br>{{ i['description'] }}<br></span>
-          <span class="more">mer...</span>
+          <span class="more">Om restauranten</span>
           </p>
 
 
@@ -342,7 +341,7 @@
               $(".more").clicktoggle(function() {
                 $(this).text("mindre..").siblings(".complete").show(400);
               }, function() {
-                $(this).text("mer..").siblings(".complete").hide(400);
+                $(this).text("Om Restauranten").siblings(".complete").hide(400);
               });
               </script>
 
