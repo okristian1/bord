@@ -10,22 +10,18 @@
     <div class="container text-center">
       <h1>Bordfinneren</h1>
       <p class="lead">Finn ut hvilke restauranter i Trondheim som har ledig bord</p>
-          <hr class="long">
-          <h3 style="color:black;">Velg dato og tidspunkt</h3>
-          <hr>
-    <br>
     <div class="row">
-      <div id="finnbord" class='col-lg-6 col-lg-offset-3 col-xs-12'>
+      <div id="finnbord" class='col-lg-8 col-lg-offset-2 col-xs-12 well'>
+        <h3 style="color:black;">Velg dato og tidspunkt</h3>
+        <hr>
         <form action="." method="POST">
           <div class='input-group date center-block' id='datetimepicker'>
             <input type='hidden' name="selected_dt" class="form-control text-center" placeholder="Velg dato og tidspunkt" required/>
           </div>
           <br>
-          <hr class="long">
               <div class="row">
-                <h3 style="color:black;">Velg hvor lenge dere vil sitte og antall gjester</h3>
+                <h3 style="color:black;">Velg antall timer og gjester</h3>
                 <hr>
-
                 <div class="col-xs-12 col-lg-6 text-center center-block">
                   <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
                   <div class="input-group">
@@ -60,7 +56,6 @@
                     <br><br><br>
                     <div class="col-lg-12 text-center">
                     <input type="submit" class="btn btn-primary btn-xl" value="Søk">
-                    <hr class="long">
                   </form>
                  </div>
     </div>

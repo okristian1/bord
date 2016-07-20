@@ -45,6 +45,17 @@ def contact():
 def my_form():
     return render_template("dev.html")
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
+
+@app.route('/contactform')
+def contactform():
+    return render_template("contact.html")
+
+
+
+
 @app.route('/', methods=['POST'])
 def my_form_post():
     if request.method == 'POST':
