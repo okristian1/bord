@@ -77,7 +77,7 @@ def my_form_post():
 
         if free_tables_banksalen >= int(guests)/4:
             restaurants.append({
-              'id': "0",
+             'id': "0",
              'name': "Banksalen",
              'logo': "static/media/img/logo_banksalen.jpeg",
              'link': "https://sparbank1.2book.se/",

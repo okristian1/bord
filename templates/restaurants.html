@@ -51,11 +51,9 @@
           <!-- /.modal -->
 
       <p>
-      <span class="complete"><br>{{ i['description'] }}<br></span>
+      <span class="complete">{{ i['description'] }}<br></span>
       <span class="more">Om restauranten</span>
       </p>
-
-
       <button class="btn btn-default btn-xl" data-toggle="modal" data-target="#{{ i['id'] }}">Kart</button>
       <!-- Modal -->
       <div class="modal fade" id="{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="map_modal_label" aria-hidden="true">
@@ -74,13 +72,10 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-      <hr class="light">
-
       </div>
     </div>
-    <br><br><br>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
 </section>
 {% endblock %}
