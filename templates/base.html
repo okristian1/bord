@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-
+ {% block head %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Bordfinneren</title>
+  <title>{% block title %}{% endblock %} - My Webpage</title>
 
   <!-- Bootstrap Core CSS -->
   <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
@@ -63,21 +63,91 @@
                   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
                   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
                   <![endif]-->
+{% endblock %}
                 </head>
 
-  <body>
-    <div id="content">{% block content %}
-      {% endblock %}</div>
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                  <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">Bordfinneren</a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                      <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#">Hjem</a></li>
+                        <li><a href="#about">Info</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                      </ul>
+                    </div><!--/.nav-collapse -->
+                  </div>
+                </nav>
+
+                <body>
+                  <div id="content">{% block content %}{% endblock %}</div>
+                    <div id="footer">
+                      {% block footer %}
+                        {% endblock %}
+                    </div>
+                  </body>
+                </html>
+
+  <script type="text/javascript">
+  $(function () {
+    $('#datetimepicker').datetimepicker({
+      format: 'YYYY-MM-DD HH:mm',
+      locale: 'nb',
+      stepping: 15,
+      inline: true,
+      sideBySide: true,
+    });
+  });
+  </script>
+
+  <script type="text/javascript">
+  $.fn.clicktoggle = function(a, b) {
+      return this.each(function() {
+          var clicked = false;
+          $(this).click(function() {
+              if (clicked) {
+                  clicked = false;
+                  return b.apply(this, arguments);
+              }
+              clicked = true;
+              return a.apply(this, arguments);
+          });
+      });
+  };
+
+  $(".more").clicktoggle(function() {
+    $(this).text("mindre..").siblings(".complete").show(400);
+  }, function() {
+    $(this).text("Om Restauranten").siblings(".complete").hide(400);
+  });
+  </script>
+
+  <script type="text/javascript">
+  $(function () {
+    $('.spinner').spinner({
+      min: 2,
+      max: 10
+    });
+  });
+  $(function () {
+    $('.spinner2').spinner({
+      min: 4,
+      max: 10
+    });
+  });
+
+  </script>
 
 
-    <div id="footer">
-      {% block footer %}
-      <section id="footer">
-        <div class="container">
-      <h4 class="text-center text-muted"><a href="http://okristian1.github.io/okristian1/">Utviklet av Ole Kristian Skramstad</a></h4>
-      </div>
-      </section>
-      {% endblock %}
-    </div>
-  </body>
+  <!-- Custom Theme JavaScript -->
+  <script type=text/javascript src="{{
+    url_for('static', filename='js/creative.js') }}"></script>
 </html>

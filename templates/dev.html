@@ -1,379 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Bordfinneren</title>
-
-  <!-- Bootstrap Core CSS -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/bootstrap.min.css') }}">
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/font-awesome/css/font-awesome.min.css') }}">
-
-  <!-- Custom Fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-
-  <!-- Plugin CSS -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/animate.min.css') }}">
-
-  <!-- Custom CSS -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/datetimepicker.css') }}">
-
-  <!-- Custom stylesheet CSS -->
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/css/creative.css') }}">
-
-  <!-- Favicon stuff -->
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="{{ url_for('static',filename='media/favicon/favicon-32x32.png') }}" sizes="32x32">
-  <link rel="icon" type="image/png" href="{{ url_for('static',filename='media/favicon/favicon-16x16.png') }}" sizes="16x16">
-  <link rel="manifest" href="{{ url_for('static',filename='media/favicon//manifest.json') }}">
-  <link rel="mask-icon" href="{{ url_for('static',filename='media/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
-  <meta name="theme-color" content="#ffffff">
-
-
-  <!-- jQuery -->
-  <script type=text/javascript src="{{
-    url_for('static', filename='js/jquery.js') }}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script type=text/javascript src="{{
-      url_for('static', filename='js/bootstrap.min.js') }}"></script>
-      <!-- Plugin JavaScript -->
-      <script type=text/javascript src="{{
-        url_for('static', filename='js/jquery.easing.min.js') }}"></script>
-        <script type=text/javascript src="{{
-          url_for('static', filename='js/jquery.fittext.js') }}"></script>
-          <script type=text/javascript src="{{
-            url_for('static', filename='js/wow.min.js') }}"></script>
-
-
-            <!-- Custom Scripts -->
-            <script type=text/javascript src="{{
-              url_for('static', filename='js/plugins/bootstrap-spinner/bootstrap-spinner.min.js') }}"></script>
-              <script type=text/javascript src="{{
-                url_for('static', filename='js/plugins/moment-with-locales.js') }}"></script>
-                <script type=text/javascript src="{{
-                  url_for('static', filename='js/plugins/datetimepicker.js') }}"></script>
-                  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-                  <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-                  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-                  <![endif]-->
-                  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-                  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-                  <!--[if lt IE 9]>
-                  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-                  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-                  <![endif]-->
-                </head>
-<!-- Displays available restaurants after search query. -->
-{% if restaurants %}
-<br><br><br>
-    <div class="container">
-      <div class="row">
-        <div>
-        <h2 class="text-center">Restauranter i Trondheim med ledig bord</h2>
-        <hr>
-      </div>
-      <div class="col-lg-2 col-lg-offset-5">
-        <a href="/" class="btn btn-primary btn-xl btn-block" role="button">Tilbake</a>
-  </div>
-  </div>
-  </div>
-
-<section>
-  {% for i in restaurants %}
-  <div class="col-lg-4 col-xs-12">
-    <div class="portfolio-box-caption text-center">
-            <div class="portfolio-box-caption-content">
-              <img src="{{ i['logo'] }}">
-          </div>
-          <p><a href="tel:{{ i['number'] }}"><span class="glyphicon glyphicon-earphone"></span><br>{{ i['number'] }}</a></p>
-          <div class="project-name">
-              <button class="btn btn-primary btn-xl" data-toggle="modal" data-target="#{{ i['name'] }}">Reserver bord</button>
-              <!-- Modal -->
-              <div class="modal fade" id="{{ i['name'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title text-center" id="myModalLabel">Reserver bord hos {{ i['name'] }}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <iframe src="{{ i['link'] }}"width="100%" height="480px" frameborder="0" allowtransparency="true"></iframe>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <!-- /.modal -->
-
-          <p>
-          <span class="complete"><br>{{ i['description'] }}<br></span>
-          <span class="more">Om restauranten</span>
-          </p>
-
-
-          <button class="btn btn-default btn-xl" data-toggle="modal" data-target="#{{ i['id'] }}">Kart</button>
-          <!-- Modal -->
-          <div class="modal fade" id="{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="map_modal_label" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title text-center" id="map_modal_label">Kart for {{ i['name'] }}</h4>
-                </div>
-                <div class="modal-body">
-                    <iframe src="{{ i['kart'] }}"width="100%" height="480px" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-          </div>
-          <!-- /.modal -->
-          <hr class="light">
-
-          </div>
-        </div>
-        <br><br><br>
-      </div>
-    </div>
-{% endfor %}
-</section>
-
-{% else %}
-
-
-<body id="page-top">
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand page-scroll" href="#page-top">BETA</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a class="page-scroll" href="#om">Om siden</a>
-          </li>
-          <li>
-            <a class="page-scroll" href="/contact">Kontakt</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
-<header id="header">
-  <div class="header-content">
-    <div class="header-content-inner">
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+    <div class="container text-center">
       <h1>Bordfinneren</h1>
-      <hr>
-      <h1>Nettsiden er under utvikling og vil enn så lenge gi mindre enn korrekte resultater.</h1>
-<!--
-      <p style="color:white;">Her kan du enkelt finne ut hvilke restauranter i Trondheim som har ledig bord.</p>
--->
-    </div>
-    <a href="#gimmefood" class="btn btn-primary btn-xl page-scroll">Les mer</a>
-  </header>
+      <p class="lead">Finn ut hvilke restauranter i Trondheim som har ledig bord</p>
+          <hr class="long">
+          <h3 style="color:black;">Velg dato og tidspunkt</h3>
+          <hr>
+    <br>
+    <div class="row">
+      <div id="finnbord" class='col-lg-6 col-lg-offset-3 col-xs-12'>
+        <form action="." method="POST">
+          <div class='input-group date center-block' id='datetimepicker'>
+            <input type='hidden' name="selected_dt" class="form-control text-center" placeholder="Velg dato og tidspunkt" required/>
+          </div>
+          <br>
+          <hr class="long">
+              <div class="row">
+                <h3 style="color:black;">Velg hvor lenge dere vil sitte og antall gjester</h3>
+                <hr>
 
-<section id="gimmefood">
-
-<div class="container text-center">
-        <h3 style="color:black;">Velg dato, klokkeslett, hvor lenge du ønsker bordet og antall personer.</p>
-      </div>
-      <hr>
-
-<br>
-  <div id="finnbord" class='col-lg-6 col-lg-offset-3 col-xs-10 col-xs-offset-1'>
-    <form action="." method="POST">
-      <div class='input-group date center-block' id='datetimepicker'>
-        <input type='hidden' name="selected_dt" class="form-control text-center" placeholder="Velg dato og tidspunkt" required/>
-      </div>
-      <br>
-      <hr class="long">
-          <div class="row">
-            <div class="col-xs-12 col-lg-6 text-center center-block">
-              <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner" data-toggle="spinner">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                  </button>
-                </span>
-                <input type="tel" name="sit_time" data-ride="spinner" id="spinner" class="form-control input-number text-center" value="2">
-                <span class="input-group-btn">
-                  <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner" data-toggle="spinner">
-                    <span class="glyphicon glyphicon-chevron-up"></span>
-                  </button>
-                </div>
-                </div>
                 <div class="col-xs-12 col-lg-6 text-center center-block">
-                  <h3 class="text-center"><span class="glyphicon glyphicon-user"></span><br>Antall</h3>
+                  <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
                   <div class="input-group">
                     <span class="input-group-btn">
-                      <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner2" data-toggle="spinner">
+                      <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner" data-toggle="spinner">
                         <span class="glyphicon glyphicon-chevron-down"></span>
                       </button>
                     </span>
-                    <input type="tel" name="guests" data-ride="spinner" id="spinner2" class="form-control input-number text-center" value="4">
+                    <input type="tel" name="sit_time" data-ride="spinner" id="spinner" class="form-control input-number text-center" value="2">
                     <span class="input-group-btn">
-                      <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner2" data-toggle="spinner">
+                      <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner" data-toggle="spinner">
                         <span class="glyphicon glyphicon-chevron-up"></span>
                       </button>
                     </div>
                     </div>
-                </div>
-                <br><br><br>
-                <div class="col-lg-12 text-center">
-                <button id="search" type="submit" class="btn btn-primary btn-xl btn_search" name="submit" value="Søk">Søk</button>
-                <hr class="long">
-
-             </div>
-           </div>
-</section>
-
-
-          <section id="om">
-            <div class="container">
-                <div class="col-lg-12 text-center">
-                  <br>
-                  <h2 class="section-heading">Litt informasjon om nettsiden</h2>
-                  <hr class="primary">
-                </div>
-                <div class="col-lg-12 text-center">
-                <div class="service-box">
-                  <i class="fa fa-4x fa-search wow bounceIn text-primary"></i>
-                  <h3>Velkommen til bordfinneren.no</h3>
-                  <p class="text-muted">Har du noensinne vært frustrert over å måtte ringe rundt til flere restauranter for å finne et ledig bord?
-                  Det har jeg. Derfor utviklet jeg denne tjenesten der du enkelt kan se en liste over alle restaurantene som har ledig kapasitet.
-                Tjenesten er under utvikling og vil dermed ikke altid gi korrekt resultat. Flere restauranter og funksjoner vil bli lagt til etterhvert.</p>
-                </div>
-              </div>
-              <div class="col-lg-12 text-center">
-                <div class="service-box">
-                  <i class="fa fa-4x fa-cutlery wow bounceIn text-primary" data-wow-delay=".3s"></i>
-                  <h3>Manglende restaurant?</h3>
-                  <p class="text-muted">Hvis du savner en restaurant kan du gjerne sende meg en beskjed.<br><a href="/contact">Ta kontakt</a></p>
-                </div>
-              </div>
-              <div class="col-lg-12 text-center">
-                  <div class="service-box">
-                    <i class="fa fa-4x fa-magic wow bounceIn text-primary" data-wow-delay=".2s"></i>
-                    <h3>Hvordan fungerer det?</h3>
-                    <p class="text-muted">Bordfinneren sjekker flere av byens populære restauranter og gir deg en liste over de som burde ha ledig plass.
-                    Når du trykker på "RESERVER BORD" knappen åpner vi et bestillingsvindu direkte til restauranten du har valgt slik at du kan reservere bord.</p>
-                  </div>
-                </div>
-              </div>
-          </section>
-
-
-<section id="contact">
-  <div class="col-lg-12 text-center">
-          <div class="project-name">
-              <p class="btn btn-default btn-xl" data-toggle="modal" data-target="#23" value="Kontakt">Kontakt</p>
-              <!-- Modal -->
-              <div class="modal fade" id="23" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h2 class="modal-title text-center" id="myModalLabel">Kontaktskjema</h2>
-                      <hr>
+                    <div class="col-xs-12 col-lg-6 text-center center-block">
+                      <h3 class="text-center"><span class="glyphicon glyphicon-user"></span><br>Antall</h3>
+                      <div class="input-group">
+                        <span class="input-group-btn">
+                          <button type="button" id="minusbutton" class="btn btn-default btn-xl" data-value="decrease" data-target="#spinner2" data-toggle="spinner">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                          </button>
+                        </span>
+                        <input type="tel" name="guests" data-ride="spinner" id="spinner2" class="form-control input-number text-center" value="4">
+                        <span class="input-group-btn">
+                          <button type="button" id="plusbutton" class="btn btn-default btn-xl" data-value="increase" data-target="#spinner2" data-toggle="spinner">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                          </button>
+                        </div>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <iframe src="/contact"width="100%" height="500px" frameborder="0" allowtransparency="true"></iframe>
-                    </div>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-              </div>
-              <!-- /.modal -->
-            </div>
+                    <br><br><br>
+                    <div class="col-lg-12 text-center">
+                    <input type="submit" class="btn btn-primary btn-xl" value="Søk">
+                    <hr class="long">
+                  </form>
+                 </div>
+    </div>
+  </div>
 </div>
-</section>
 
-<section id="footer">
-  <div class="container">
-<h4 class="text-center text-muted"><a href="http://okristian1.github.io/okristian1/">Utviklet av Ole Kristian Skramstad</a></h4>
+
+{% endblock %}
+
+{% block footer %}
+<div class="container">
+<div class="row text-center">
+  <a class=" text-muted" href="http://okristian1.github.io/okristian1/">Utviklet av Ole Kristian Skramstad</a>
+  </div>
 </div>
-</section>
-
-
-{% endif %}
-              <script type="text/javascript">
-              $(function () {
-                $('#datetimepicker').datetimepicker({
-                  format: 'YYYY-MM-DD HH:mm',
-                  locale: 'nb',
-                  stepping: 15,
-                  inline: true,
-                  sideBySide: true,
-                });
-              });
-              </script>
-
-              <script type="text/javascript">
-              $.fn.clicktoggle = function(a, b) {
-                  return this.each(function() {
-                      var clicked = false;
-                      $(this).click(function() {
-                          if (clicked) {
-                              clicked = false;
-                              return b.apply(this, arguments);
-                          }
-                          clicked = true;
-                          return a.apply(this, arguments);
-                      });
-                  });
-              };
-
-              $(".more").clicktoggle(function() {
-                $(this).text("mindre..").siblings(".complete").show(400);
-              }, function() {
-                $(this).text("Om Restauranten").siblings(".complete").hide(400);
-              });
-              </script>
-
-              <script type="text/javascript">
-              $(function () {
-                $('.spinner').spinner({
-                  min: 2,
-                  max: 10
-                });
-              });
-              $(function () {
-                $('.spinner2').spinner({
-                  min: 4,
-                  max: 10
-                });
-              });
-
-              </script>
-
-
-              <!-- Custom Theme JavaScript -->
-              <script type=text/javascript src="{{
-                url_for('static', filename='js/creative.js') }}"></script>
-
-              </body>
-              </html>
+{% endblock %}

@@ -1,0 +1,86 @@
+
+{% extends "base.html" %}
+
+
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div>
+    <h2 class="text-center">Restauranter i Trondheim med ledig bord</h2>
+    <hr>
+  </div>
+  <div class="col-lg-2 col-lg-offset-5">
+    <a href="/" class="btn btn-primary btn-xl btn-block" role="button">Tilbake</a>
+</div>
+</div>
+</div>
+
+<section>
+{% for i in restaurants %}
+<div class="col-lg-4 col-xs-12">
+<div class="portfolio-box-caption text-center">
+        <div class="portfolio-box-caption-content">
+          <img src="{{ i['logo'] }}">
+      </div>
+      <p><a href="tel:{{ i['number'] }}"><span class="glyphicon glyphicon-earphone"></span><br>{{ i['number'] }}</a></p>
+      <div class="project-name">
+          <button class="btn btn-primary btn-xl" data-toggle="modal" data-target="#{{ i['name'] }}">Reserver bord</button>
+          <!-- Modal -->
+          <div class="modal fade" id="{{ i['name'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title text-center" id="myModalLabel">Reserver bord hos {{ i['name'] }}</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe src="{{ i['link'] }}"width="100%" height="480px" frameborder="0" allowtransparency="true"></iframe>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->
+
+      <p>
+      <span class="complete"><br>{{ i['description'] }}<br></span>
+      <span class="more">Om restauranten</span>
+      </p>
+
+
+      <button class="btn btn-default btn-xl" data-toggle="modal" data-target="#{{ i['id'] }}">Kart</button>
+      <!-- Modal -->
+      <div class="modal fade" id="{{ i['id'] }}" tabindex="-1" role="dialog" aria-labelledby="map_modal_label" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title text-center" id="map_modal_label">Kart for {{ i['name'] }}</h4>
+            </div>
+            <div class="modal-body">
+                <iframe src="{{ i['kart'] }}"width="100%" height="480px" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <hr class="light">
+
+      </div>
+    </div>
+    <br><br><br>
+  </div>
+</div>
+{% endfor %}
+</section>
+{% endblock %}
