@@ -142,8 +142,18 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute("""
-    SELECT table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND ? NOT BETWEEN db_booking_start AND db_booking_end AND ? NOT BETWEEN db_booking_start AND db_booking_end
-    """, (restaurant, user_date, user_timedate_start, user_timedate_end))
+     SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
+     (SELECT table_id WHERE
+     (? <= db_booking_start AND ? >= db_booking_start)
+     OR (? < db_booking_end AND ? >= db_booking_end)
+     OR (db_booking_start <= ? AND db_booking_end >= ?)
+     OR (? > db_booking_start))
+     """, (restaurant, user_date, user_timedate_start, user_timedate_end,
+     user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
+
+
+    # SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND (? NOT BETWEEN db_booking_start AND db_booking_end) AND (? NOT BETWEEN db_booking_start AND db_booking_end)
+    # """, (restaurant, user_date, user_timedate_start, user_timedate_end))
 
 #and booking star or booking end between db booking start and db booking end
 
