@@ -44,7 +44,6 @@ def add_new_reservations():
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
                             new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
-                            print (new_reservation)
                             counter+=1
 
                             c.execute("SELECT table_id FROM reservations WHERE table_id=? AND db_booking_start = ? AND db_booking_end = ? AND pax = ? AND customer = ?",(table_id, db_booking_start, db_booking_end, pax, customer))
@@ -54,8 +53,6 @@ def add_new_reservations():
                                 print ("Creating new reservation.")
                                 c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer ) VALUES(?,?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer))
 
-                            else:
-                                print('Reservation found')
                         else:
                             pass
                 counter=0
@@ -94,8 +91,6 @@ def delete_old():
                             pax = reservation.get('NrOfGuest')
                             table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
                             new_reservation = (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer)
-                            print (db_booking_end)
-                            print (new_reservation)
                             new.append(new_reservation)
                             counter+=1
                 counter = 0
@@ -113,8 +108,6 @@ def delete_old():
             c.execute("DELETE FROM reservations WHERE id = ?", (rowid_counter,));
             conn.commit()
 
-        else:
-            print ("found")
     c.close()
     conn.close()
 
