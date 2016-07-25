@@ -137,31 +137,28 @@ def my_form_post():
         return render_template('restaurants.html', restaurants = restaurants)
 
 
-    # VALUES FOR tables_db AND reservations_db IS FROM list_of_restaurant_tables
+# Finds available restaurant tables. User = website selected. db = exsisting database info.
+
 def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute("""
-     SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
-     (SELECT table_id WHERE
+     SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN
+     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ?)
+     UNION
+     SELECT
+     table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
+     (SELECT
+     table_id WHERE
      (? <= db_booking_start AND ? >= db_booking_start)
      OR (? < db_booking_end AND ? >= db_booking_end)
      OR (db_booking_start <= ? AND db_booking_end >= ?)
-     OR (? > db_booking_start))
-     """, (restaurant, user_date, user_timedate_start, user_timedate_end,
+     OR (? >= db_booking_start))
+     """, (restaurant, user_date, restaurant, user_date, user_timedate_start, user_timedate_end,
      user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
 
 
-    # SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND (? NOT BETWEEN db_booking_start AND db_booking_end) AND (? NOT BETWEEN db_booking_start AND db_booking_end)
-    # """, (restaurant, user_date, user_timedate_start, user_timedate_end))
 
-#and booking star or booking end between db booking start and db booking end
-
-#    UNION
-#    SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN (SELECT DISTINCT table_id FROM reservations WHERE ddate LIKE ?)
-
-# Bookings now found can be bookings that exist BEFORE selected time. How to fix?
-# Need to be able to select spesific dates again
 
 
     data = c.fetchall()
