@@ -7,7 +7,7 @@ def add_new():
 	add_new_reservations()
 	print("Added new reservations to database")
 	print ("Sleeping to avoid database conflict")
-	time.sleep(30)
+	time.sleep(10)
 	delete_old()
 	print("Removed deleted reservations from database")
 

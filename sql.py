@@ -113,10 +113,10 @@ def delete_old():
 
 
 
-#create_table()
+create_table()
 #get_info()
 #data_entry()
-#add_new_reservations()
+add_new_reservations()
 #delete_old()
 #read_from_db(1461823200, 1461877200, '2016-04-28%', 'SpareBank 1%')
 
