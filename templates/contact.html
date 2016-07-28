@@ -10,11 +10,10 @@
 
   <section id="kontakt">
       <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3 col-xs-12 text-center contact-form white-text">
-              <br><br><br><br>
-              <h1>Kontaktskjema</h1>
-<br><br>
+        <div class="row text-center">
+          <br><br><br>
+          <h1 class="white-text">Kontaktskjema</h1>
+            <div class="well col-lg-6 col-lg-offset-3 col-xs-12 contact-form">
               {% block form %}
 
                 {% if success %}
@@ -22,40 +21,37 @@
 
                 {% else %}
 
-                  {% for message in form.name.errors %}
-                    <div class="flash text-center">{{ message }}</div>
-                  {% endfor %}
-
-                  {% for message in form.email.errors %}
-                    <div class="flash">{{ message }}</div>
-                  {% endfor %}
-
-                  {% for message in form.subject.errors %}
-                    <div class="flash">{{ message }}</div>
-                  {% endfor %}
-
-                  {% for message in form.message.errors %}
-                    <div class="flash">{{ message }}</div>
-                  {% endfor %}
-
                   <form action="{{ url_for('contact') }}" method=post>
                     {{ form.hidden_tag() }}
 
                     {{ form.name.label }}
+                    {% for message in form.name.errors %}
+                      <div class="flash center-block">{{ message }}</div>
+                    {% endfor %}
                     {{ form.name }}
 
                     {{ form.email.label }}
+                    {% for message in form.email.errors %}
+                      <div class="flash center-block">{{ message }}</div>
+                    {% endfor %}
                     {{ form.email }}
 
                     {{ form.subject.label }}
+                    {% for message in form.subject.errors %}
+                      <div class="flash center-block">{{ message }}</div>
+                    {% endfor %}
                     {{ form.subject }}
 
                     {{ form.message.label }}
+                    {% for message in form.message.errors %}
+                      <div class="flash center-block">{{ message }}</div>
+                    {% endfor %}
                     {{ form.message }}
 
-                    <p class="text-center btn">{{ form.submit }}</p>
+                    <div class="center-block">
+                    <button class="btn btn-primary btn-xl" {{ form.submit }}Send</button>
+                  </div>
                   </form>
-
                 {% endif %}
               {% endblock %}
           </div>

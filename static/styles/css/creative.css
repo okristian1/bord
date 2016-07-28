@@ -8,9 +8,9 @@
 
  /* Message flashing */
  .flash {
-   background-color: #FBB0B0;
-   padding: 10px;
-   width: 400px;
+   background-color: #FBB0B0;;
+   width:100%;
+   text-align: center;
  }
 
  .white-text {
@@ -114,8 +114,9 @@ html,
 body {
     width: 100%;
     height: 100%;
-    background-image:url('../../media/headers/Kt8J9.png');
-
+    background-image:url('../../media/headers/snack.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 body {
@@ -155,7 +156,7 @@ a {
 
 a:hover,
 a:focus {
-  color: black;
+  color: orange;
 }
 
 h1,
