@@ -13,6 +13,10 @@
    width: 400px;
  }
 
+ .bordfinneren {
+   color:white;
+ }
+
  form label {
    font-size: 1.2em;
    font-weight: bold;
@@ -77,14 +81,6 @@
    background-image: linear-gradient(top, #dbdbdb, #cccccc);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#dbdbdb, endColorstr=#cccccc);
  }
 
-#header2 h1{
-  color:black;
-}
-
-
-#om {
-  margin-top: 600px;
-}
 
 .btn {
   font-size: 12px;
@@ -198,6 +194,7 @@ aside {
 
 header {
     position: relative;
+    background-image:url('../../media/headers/Kt8J9.png');
     width: 100%;
     min-height: auto;
     text-align: center;

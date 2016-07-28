@@ -7,12 +7,13 @@
   </style>
 {% endblock %}
 {% block content %}
+<header>
     <div class="container text-center">
-      <h1>Bordfinneren</h1>
-      <p class="lead">NB. Tjenesten er for tiden under utvikling og vi kan derfor ikke garantere at alt fungerer som det skal.</p>
+      <h1 class="bordfinneren">Bordfinneren</h1>
+      <p class="lead bordfinneren">NB. Tjenesten er for tiden under utvikling. Feil kan forekomme.</p>
     <div class="row">
       <div id="finnbord" class='col-lg-8 col-lg-offset-2 col-xs-12 well'>
-        <h3 style="color:black;">Velg dato og tidspunkt</h3>
+        <h3>Velg dato og tidspunkt</h3>
         <hr>
         <form action="." method="POST">
           <div class='input-group date center-block' id='datetimepicker'>
@@ -20,7 +21,7 @@
           </div>
           <br>
               <div class="row">
-                <h3 style="color:black;">Velg antall timer og gjester</h3>
+                <h3>Velg antall timer og gjester</h3>
                 <hr>
                 <div class="col-xs-12 col-lg-6 text-center center-block">
                   <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
@@ -62,6 +63,11 @@
   </div>
 </div>
 
+<footer>
+  <div class="container text-center bordfinneren">
+    <p class="muted">Utviklet av Ole Kristian Skramstad</p>
+  </div>
+</header>
 
 {% endblock %}
 
