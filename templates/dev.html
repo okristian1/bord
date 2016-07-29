@@ -9,21 +9,21 @@
 {% block content %}
 <section>
     <div class="container text-center">
-      <h1 class="white-text">Bordfinneren</h1>
-      <p class="lead white-text">NB. Tjenesten er for tiden under utvikling. Feil kan forekomme.</p>
     <div class="row">
-      <div id="finnbord" class='col-lg-8 col-lg-offset-2 col-xs-12 well'>
-        <h3>Velg dato og tidspunkt</h3>
+      <div id="finnbord" class='col-lg-4 col-lg-offset-4 col-xs-10 col-xs-offset-1 well'>
+        <h1>Bordfinneren</h1>
+        <h3 class="well">Velg dato og tidspunkt</h3>
         <hr>
         <form action="." method="POST">
           <div class='input-group date center-block' id='datetimepicker'>
             <input type='hidden' name="selected_dt" class="form-control text-center" placeholder="Velg dato og tidspunkt" required/>
           </div>
+          <p>Trykk på klokka for å velge tidpunkt</p>
           <br>
               <div class="row">
-                <h3>Velg antall timer og gjester</h3>
+                <h3 class="well">Velg antall timer og gjester</h3>
                 <hr>
-                <div class="col-xs-12 col-lg-6 text-center center-block">
+                <div class="col-xs-12 col-lg-10 col-lg-offset-1 text-center">
                   <h3 class="text-center"><span class="glyphicon glyphicon-time"></span><br>Timer</h3>
                   <div class="input-group">
                     <span class="input-group-btn">
@@ -37,8 +37,10 @@
                         <span class="glyphicon glyphicon-chevron-up"></span>
                       </button>
                     </div>
-                    </div>
-                    <div class="col-xs-12 col-lg-6 text-center center-block">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-lg-10 col-lg-offset-1 text-center">
                       <h3 class="text-center"><span class="glyphicon glyphicon-user"></span><br>Antall</h3>
                       <div class="input-group">
                         <span class="input-group-btn">

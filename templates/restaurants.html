@@ -5,10 +5,12 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    .important { color: #336699; }
+  html, body
+  {background-image: none;}
   </style>
 {% endblock %}
 {% block content %}
+<section>
 <div class="container">
   <div class="row">
     <div>
@@ -20,6 +22,7 @@
 </div>
 </div>
 </div>
+</section>
 
 <section>
 {% for i in restaurants %}
@@ -73,6 +76,7 @@
       <!-- /.modal -->
       </div>
     </div>
+    <br><br><br><br>
   </div>
   {% endfor %}
 </div>

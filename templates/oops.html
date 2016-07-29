@@ -5,15 +5,16 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    .important { color: #336699; }
   </style>
 {% endblock %}
 {% block content %}
-<div class="container text-center">
+<section>
+<div class="col-lg-6 col-lg-offset-3 text-center well">
   <h1>Oisann</h1>
   <p class="important">
-Oi, vi fant visst ingen ledige restauranter i Trondheim.<br>
+Ooops, vi fant ingen ledige restauranter i Trondheim.<br>
 <h1> :-( </h1> <br>
-<a href="/"> Klikk her om du vil prøve igjen.</a>
+<a href="/" class="btn btn-primary btn-xl">Klikk her for prøve igjen</a>
 </div>
+</section>
 {% endblock %}
