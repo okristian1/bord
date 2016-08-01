@@ -143,7 +143,7 @@ hr.light {
 
 hr.long {
   max-width: 100%;
-  border-color: grey;
+  border-color: #d8d4d4;
 }
 
 
@@ -357,11 +357,12 @@ header .header-content .header-content-inner p {
 }
 
 .btn-default {
-    border-color: black;
+    border-color: white;
     border-radius: 5px;
     border: solid;
-    border-width: 2px;
-    background-color: #fff;
+    border-width: 0px;
+    margin-bottom: 1px;
+    background-color: transparent;
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
