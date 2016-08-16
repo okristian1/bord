@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from fetch import *
+from config import *
 
 mail = Mail()
 
 
 app = Flask(__name__)
-app.secret_key = 'Development'
+app.secret_key = secret_key
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 465
@@ -131,7 +132,8 @@ def my_form_post():
             'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7137.228880057128!2d10.4108471!3d63.4348489!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7a454e0b5dbcc45!2sS%C3%B8strene+Karlsen+AS!5e0!3m2!1sno!2sno!4v1464767160518"})
 
         elif restaurants == []:
-            return render_template('oops.html')
+            flash("Beklager, fant ingen restauranter med ledig bord!")
+            return render_template('dev.html')
 
 
         return render_template('restaurants.html', restaurants = restaurants)
@@ -174,4 +176,4 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

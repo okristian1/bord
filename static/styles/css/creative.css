@@ -9,8 +9,9 @@
  /* Message flashing */
  .flash {
    background-color: #FBB0B0;;
-   width:100%;
    text-align: center;
+   line-height: 2;
+   width: 100%;
  }
 
  .white-text {

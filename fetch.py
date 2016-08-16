@@ -29,7 +29,7 @@ def get_info():
     reservations_una = []
 
     date = datetime.now().date() - timedelta(days=1)
-    for i in range(2):
+    for i in range(30):
         date += timedelta(days=1)
 
 #        banksalen = urlopen('https://sparbank1.2book.se/simpleIntegration/GetCreaJson?RestaurantId=4&dateTime=' + str(date))
