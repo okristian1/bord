@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from fetch import *
-from config import *
-
 mail = Mail()
 
 
@@ -68,7 +66,6 @@ def my_form_post():
         print (user_timedate_start)
         print (user_timedate_end)
         guests = request.form['guests']
-#        free_tables_banksalen = read_from_db(user_timedate_start, user_date, "SpareBank 1%")
         free_tables_aisuma = read_from_db(user_timedate_start, user_timedate_end, user_date, "AiSuma%")
         free_tables_frati = read_from_db(user_timedate_start, user_timedate_end, user_date, "Frati%")
         free_tables_eld = read_from_db(user_timedate_start, user_timedate_end, user_date, "Restaurant Eld%")
@@ -77,15 +74,6 @@ def my_form_post():
 
         restaurants = []
 
-        # if free_tables_banksalen >= int(guests)/4:
-        #     restaurants.append({
-        #      'id': "0",
-        #      'name': "Banksalen",
-        #      'logo': "static/media/img/logo_banksalen.jpeg",
-        #      'link': "https://sparbank1.2book.se/",
-        #      'number': "970 61 815",
-        #      'description': description_banksalen,
-        #      'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7138.341521092942!2d10.4000946!3d63.4303828!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf3f84bbb808078b7!2sBanksalen+Restaurant!5e0!3m2!1sno!2sno!4v1464779391998"})
         if free_tables_frati >= int(guests)/4:
             restaurants.append({
             'id': "1",
@@ -140,9 +128,8 @@ def my_form_post():
 
 
 # Finds available restaurant tables. User = website selected. db = exsisting database info.
-
 def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
-    conn = sqlite3.connect('bookings.db')
+    conn = sqlite3.connect('/home/locrin/Documents/bord/bookings.db')
     c = conn.cursor()
     c.execute("""
      SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN
@@ -160,13 +147,9 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
      user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
 
 
-
-
-
     data = c.fetchall()
     for row in data:
         print (row)
-
 
     return len(data)
 
