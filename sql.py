@@ -1,7 +1,7 @@
 
 from fetch import *
 
-restaurant_list = get_info()
+#restaurant_list = get_info()
 
 
 conn = sqlite3.connect('bookings.db')
@@ -13,10 +13,10 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
 
 def data_entry():
-    restaurant = "SpareBank 1 "
-    for i in range(200,202):
-        c.execute('''INSERT INTO bord(table_id)
-                          VALUES(?)''', (restaurant + str(i),))
+    restaurant = "Frati "
+    for i in range(1,200):
+        c.execute('''INSERT INTO bord(table_id, chairs)
+                          VALUES(?, ?)''', (restaurant + str(i), 2))
 
 
     conn.commit()
@@ -114,8 +114,8 @@ def delete_old():
 
 
 create_table()
-#data_entry()
-add_new_reservations()
+data_entry()
+#add_new_reservations()
 #delete_old()
 
 

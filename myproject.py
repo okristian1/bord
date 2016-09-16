@@ -131,18 +131,24 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
     c = conn.cursor()
     c.execute("""
      SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND chairs >= ? AND table_id Not IN
-     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ? AND chairs >= ?)
+     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ?)
      UNION
      SELECT
-     table_id FROM reservations WHERE table_id LIKE ? AND chairs >= ? AND db_booking_date LIKE ? AND table_id NOT IN
+     table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
+     (SELECT
+     table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
+     (SELECT table_id FROM bord WHERE chairs >= ?))
+     UNION
+     SELECT
+     table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
      (SELECT
      table_id WHERE
      (? <= db_booking_start AND ? >= db_booking_start)
      OR (? < db_booking_end AND ? >= db_booking_end)
      OR (db_booking_start <= ? AND db_booking_end >= ?)
      OR (? >= db_booking_start))
-     """, (restaurant, guests, user_date, guests, restaurant, guests, user_date, user_timedate_start, user_timedate_end,
-     user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
+     """, (restaurant, guests, user_date, restaurant, user_date, restaurant, user_date, guests, restaurant, user_timedate_start, user_timedate_end,
+     guests, user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
 
 
     data = c.fetchall()
