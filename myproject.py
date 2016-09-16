@@ -63,18 +63,16 @@ def my_form_post():
         user_timedate_start = datetime.strptime(get_time, '%Y-%m-%d %H:%M')
         user_timedate_end = user_timedate_start + timedelta(hours=int(get_sit_time))
         user_date = user_timedate_start.date()
-        print (user_timedate_start)
-        print (user_timedate_end)
         guests = request.form['guests']
-        free_tables_aisuma = read_from_db(user_timedate_start, user_timedate_end, user_date, "AiSuma%")
-        free_tables_frati = read_from_db(user_timedate_start, user_timedate_end, user_date, "Frati%")
-        free_tables_eld = read_from_db(user_timedate_start, user_timedate_end, user_date, "Restaurant Eld%")
-        free_tables_una = read_from_db(user_timedate_start, user_timedate_end, user_date, "Una Pizzeria e Bar%")
-        free_tables_sostrenekarlsen = read_from_db(user_timedate_start, user_timedate_end, user_date, "Søstrene Karlsen%")
+        free_tables_aisuma = read_from_db(user_timedate_start, user_timedate_end, user_date, "AiSuma%", guests)
+        free_tables_frati = read_from_db(user_timedate_start, user_timedate_end, user_date, "Frati%", guests)
+        free_tables_eld = read_from_db(user_timedate_start, user_timedate_end, user_date, "Restaurant Eld%", guests)
+        free_tables_una = read_from_db(user_timedate_start, user_timedate_end, user_date, "Una Pizzeria e Bar%", guests)
+        free_tables_sostrenekarlsen = read_from_db(user_timedate_start, user_timedate_end, user_date, "Søstrene Karlsen%", guests)
 
         restaurants = []
 
-        if free_tables_frati >= int(guests)/4:
+        if free_tables_frati:
             restaurants.append({
             'id': "1",
             'name': "Frati",
@@ -82,7 +80,7 @@ def my_form_post():
             'link': "https://frati.2book.se/",
             'number': "735 25 733",
             'description': description_frati, 'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7784.602155872907!2d10.392700778892342!3d63.429701070637456!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7f00e8dd6ee4efc!2sFrati+restaurant!5e0!3m2!1sno!2sno!4v1464689729492"})
-        if free_tables_aisuma >= int(guests)/4:
+        if free_tables_aisuma:
             restaurants.append({
             'id': "2",
             'name': "AiSuma",
@@ -91,7 +89,7 @@ def my_form_post():
             'number': "735 49 271",
             'description': description_aisuma,
             'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7137.882528599673!2d10.4039798!3d63.4322252!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb616a26176d651ea!2sAiSuma+Restaurant!5e0!3m2!1sno!2sno!4v1464699917650"})
-        if free_tables_eld >= int(guests)/4:
+        if free_tables_eld:
             restaurants.append({
             'id': "4",
             'name': "Eld",
@@ -100,7 +98,7 @@ def my_form_post():
             'number': "479 31 000",
             'description': description_eld,
             'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7138.14416319743!2d10.39161!3d63.431175!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd689dd7cc533ceb9!2sEld+Restaurant+%26+Bar!5e0!3m2!1sno!2sno!4v1464716916509"})
-        if free_tables_una >= int(guests)/4:
+        if free_tables_una:
             restaurants.append({
             'id': "5",
             'name': "Una",
@@ -109,7 +107,7 @@ def my_form_post():
             'number': "400 07 003",
             'description': description_una,
             'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7137.128179431432!2d10.410419!3d63.4352531!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6849647bda4553c6!2sUna+pizzeria+e+bar!5e0!3m2!1sno!2sno!4v1465821401392"})
-        if free_tables_sostrenekarlsen > int(guests)/4:
+        if free_tables_sostrenekarlsen:
             restaurants.append({
             'id': "3",
             'name': "SøstreneKarlsen",
@@ -128,22 +126,22 @@ def my_form_post():
 
 
 # Finds available restaurant tables. User = website selected. db = exsisting database info.
-def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
-    conn = sqlite3.connect('/home/locrin/Documents/bord/bookings.db')
+def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, guests):
+    conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute("""
-     SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND table_id Not IN
-     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ?)
+     SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND chairs >= ? AND table_id Not IN
+     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ? AND chairs >= ?)
      UNION
      SELECT
-     table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date LIKE ? AND table_id NOT IN
+     table_id FROM reservations WHERE table_id LIKE ? AND chairs >= ? AND db_booking_date LIKE ? AND table_id NOT IN
      (SELECT
      table_id WHERE
      (? <= db_booking_start AND ? >= db_booking_start)
      OR (? < db_booking_end AND ? >= db_booking_end)
      OR (db_booking_start <= ? AND db_booking_end >= ?)
      OR (? >= db_booking_start))
-     """, (restaurant, user_date, restaurant, user_date, user_timedate_start, user_timedate_end,
+     """, (restaurant, guests, user_date, guests, restaurant, guests, user_date, user_timedate_start, user_timedate_end,
      user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
 
 
@@ -151,7 +149,7 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
     for row in data:
         print (row)
 
-    return len(data)
+    return data
 
     c.close()
     conn.close()
@@ -159,4 +157,4 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug = True    )
