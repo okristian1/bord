@@ -13,8 +13,8 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
 
 def data_entry():
-    restaurant = "Frati "
-    for i in range(1,200):
+    restaurant = "Eld Restaurant "
+    for i in range(21,33):
         c.execute('''INSERT INTO bord(table_id, chairs)
                           VALUES(?, ?)''', (restaurant + str(i), 2))
 
