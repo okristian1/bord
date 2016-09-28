@@ -13,11 +13,58 @@ def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
 
 def data_entry():
-    restaurant = "Frati "
-    for i in range(1,200):
-        c.execute('''INSERT INTO bord(table_id, chairs)
-                          VALUES(?, ?)''', (restaurant + str(i), 2))
+    c.execute('''INSERT INTO bord(table_id, chairs)
+    VALUES
+    ("Restaurant Eld 5", 2),
+    ("Restaurant Eld 6", 2),
+    ("Restaurant Eld 7", 2),
+    ("Restaurant Eld 8", 2),
+    ("Restaurant Eld 9", 2),
+    ("Restaurant Eld 10", 8),
+    ("Restaurant Eld 11", 2),
+    ("Restaurant Eld 12", 2),
+    ("Restaurant Eld 13", 2),
+    ("Restaurant Eld 14", 2),
+    ("Restaurant Eld 17", 8),
+    ("Restaurant Eld 18", 6),
+    ("Restaurant Eld 19", 6),
+    ("Restaurant Eld 20", 8),
+    ("Restaurant Eld 21", 2),
+    ("Restaurant Eld 22", 2),
+    ("Restaurant Eld 23", 2),
+    ("Restaurant Eld 24", 2),
+    ("Restaurant Eld 25", 4),
+    ("Restaurant Eld 26", 4),
+    ("Restaurant Eld 27", 4),
+    ("Restaurant Eld 28", 4),
+    ("Restaurant Eld 29", 6),
+    ("Restaurant Eld 30", 6),
+    ("Restaurant Eld 31", 2),
+    ("Restaurant Eld 32", 4),
+    ("Restaurant Eld 40", 16),
+    ("Restaurant Eld 43", 8),
+    ("Restaurant Eld 44", 10),
+    ("Frati 10", 4),
+    ("Frati 11", 4),
+    ("Frati 13", 4),
+    ("Frati 14", 4),
+    ("Frati 16", 4),
+    ("Frati 18", 4),
+    ("Frati 19", 4),
+    ("Frati 22", 4),
+    ("Frati 23", 4),
+    ("Frati 26", 4),
+    ("Frati 27", 4),
+    ("Frati 30", 4),
+    ("Frati 36", 4),
+    ("Frati 37", 4),
+    ("Frati 43", 4),
+    ("Frati 50", 4),
+    ("Frati 51", 4),
+    ("Frati 52", 4),
+    ("Frati 53", 4),
 
+    ''')
 
     conn.commit()
 
