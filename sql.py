@@ -65,7 +65,10 @@ def data_entry():
     ("Frati 53", 4),
 
     ''')
-
+    restaurant = "Eld Restaurant "
+    for i in range(21,33):
+        c.execute('''INSERT INTO bord(table_id, chairs)
+                          VALUES(?, ?)''', (restaurant + str(i), 2))
     conn.commit()
 
 

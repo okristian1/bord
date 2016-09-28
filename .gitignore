@@ -64,3 +64,6 @@ target/
 
 # Secrets
 config.py
+
+# Database
+.db
