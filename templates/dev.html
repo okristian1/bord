@@ -10,7 +10,6 @@
     <div class="container">
     <div class="row">
       <br><br><br><br><br>
-      <section class="well">
 {% with messages = get_flashed_messages() %}
   {% if messages %}
 <div class="row">
@@ -20,10 +19,14 @@
     {% endfor %}
   </div>
 </div>
+</div>
+</div>
   {% endif %}
 {% endwith %}
-{% block body %}{% endblock %}
-
+<section>
+<div class="container">
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 well">
         <h2 class="well">Finn restauranter med ledig bord i Trondheim</h2>
       <div id="finnbord" class='col-lg-6 col-lg-offset-0 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1'>
         <div class="row">
@@ -71,7 +74,8 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row well">
+                    <div class="row">
+                      <div class="col-md-10 col-md-offset-1">
                     <div class="col-lg-2 col-lg-offset-5 text-center">
                     <input type="submit" class="btn btn-primary btn-xl" value="Finn et bord">
                   </div>
@@ -79,8 +83,43 @@
                  </div>
                </div>
              </div>
+           </div>
 </section>
+
+<section>
+  <div class="container">
+  <div class="well col-lg-10 col-lg-offset-1 col-xs-12">
+      <div class="text-center">
+        <br>
+        <h2 class="section-heading">Litt informasjon om nettsiden</h2>
+        <hr class="primary">
+      </div>
+      <div class="text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-search wow bounceIn text-primary"></i>
+        <h3>Velkommen til bordfinneren.no</h3>
+        <p>Har du noensinne vært frustrert over å måtte ringe rundt til flere restauranter for å finne et ledig bord?
+        Det har jeg. Derfor utviklet jeg denne tjenesten der du enkelt kan se en liste over alle restaurantene som har ledig kapasitet.
+      Tjenesten er under utvikling og vil dermed ikke altid gi korrekt resultat. Flere restauranter og funksjoner vil bli lagt til etterhvert.</p>
+      </div>
+    </div>
+    <div class="text-center">
+        <div class="service-box">
+          <i class="fa fa-4x fa-magic wow bounceIn text-primary" data-wow-delay=".2s"></i>
+          <h3>Hvordan fungerer det?</h3>
+          <p>Bordfinneren sjekker flere av byens populære restauranter og gir deg en liste over de som burde ha ledig plass.
+          Når du trykker på "RESERVER BORD" knappen åpner vi et bestillingsvindu direkte til restauranten du har valgt slik at du kan reservere bord.</p>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
 {% endblock %}
+
+
 {% block footer %}
 <div class="container">
 <div class="row text-center">

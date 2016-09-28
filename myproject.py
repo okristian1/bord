@@ -126,6 +126,7 @@ def my_form_post():
 
 
 # Finds available restaurant tables. User = website selected. db = exsisting database info.
+# Selects all tables with enough chairs that are unbooked or free within the timedate seletected.
 def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, guests):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
@@ -152,9 +153,6 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
 
 
     data = c.fetchall()
-    for row in data:
-        print (row)
-
     return data
 
     c.close()
@@ -163,4 +161,4 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
 
 
 if __name__ == '__main__':
-    app.run(debug = True    )
+    app.run(debug = True)

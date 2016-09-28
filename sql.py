@@ -74,8 +74,7 @@ def data_entry():
     ("Frati 31", 8),
     ("Frati 32", 8),
     ("Frati 35", 8),
-    ("Frati 60", 8),
-
+    ("Frati 60", 8)
     ''')
     restaurant = "Eld Restaurant "
     for i in range(21,33):
@@ -127,10 +126,9 @@ def add_new_reservations():
 # Loops over all reservations in local database and deletes them if they are noe longer found in bookatables database.
 
 def delete_old():
-
+    # connect to database
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
-
     c.execute('''SELECT table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer FROM reservations''')
     old = c.fetchall()
     new = []
