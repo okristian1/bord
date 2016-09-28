@@ -63,6 +63,18 @@ def data_entry():
     ("Frati 51", 4),
     ("Frati 52", 4),
     ("Frati 53", 4),
+    ("Frati 12", 6),
+    ("Frati 33", 6),
+    ("Frati 45", 6),
+    ("Frati 46", 6),
+    ("Frati 20", 8),
+    ("Frati 21", 8),
+    ("Frati 24", 8),
+    ("Frati 25", 8),
+    ("Frati 31", 8),
+    ("Frati 32", 8),
+    ("Frati 35", 8),
+    ("Frati 60", 8),
 
     ''')
     restaurant = "Eld Restaurant "
