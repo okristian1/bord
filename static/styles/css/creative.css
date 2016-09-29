@@ -132,7 +132,7 @@ header {
     display:block;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: auto;
     background-image:url('../../media/headers/snack-min.jpg');
     background-repeat: no-repeat;
     -webkit-background-size: cover;
@@ -225,6 +225,11 @@ header {
     -o-background-size: cover;
 }
 
+.main {
+  background-color: white;
+  border-radius: 5px;
+  opacity: 0.9
+}
 
 header .header-content {
     position: relative;
