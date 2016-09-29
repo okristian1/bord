@@ -120,9 +120,7 @@ html,
 body {
     width: 100%;
     height: 100%;
-    background-image:url('../../media/headers/snack-min.jpg');
-    background-size:cover;
-    background-repeat: no-repeat;
+    background-color: white;
 }
 
 body {
@@ -130,10 +128,19 @@ body {
     margin-top: 0%;
 }
 
-.header {
-  background-color: white;
-  border-radius: 10px;
+header {
+    display:block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image:url('../../media/headers/snack-min.jpg');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
 }
+
 
 @media(min-width:992px) {
     body {
