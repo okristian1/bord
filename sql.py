@@ -10,7 +10,7 @@ c = conn.cursor()
 
 def create_table():
     c.execute("CREATE TABLE IF NOT EXISTS bord(table_id TEXT PRIMARY KEY, chairs INTEGER)")
-    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_start DATETIME, db_booking_end DATETIME, db_booking_date TEXT, pax INTEGER, customer TEXT )")
+    c.execute("CREATE TABLE IF NOT EXISTS reservations(id INTEGER PRIMARY KEY, table_id TEXT, db_booking_date TEXT, pax INTEGER, customer TEXT, db_booking_start DATETIME, db_booking_end DATETIME)")
 
 def data_entry():
     c.execute('''INSERT INTO bord(table_id, chairs)
@@ -174,7 +174,7 @@ def delete_old():
 
 
 create_table()
-#data_entry()
+data_entry()
 add_new_reservations()
 #delete_old()
 

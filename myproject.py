@@ -62,6 +62,8 @@ def my_form_post():
         get_sit_time = request.form['sit_time']
         user_timedate_start = datetime.strptime(get_time, '%Y-%m-%d %H:%M')
         user_timedate_end = user_timedate_start + timedelta(hours=int(get_sit_time))
+        print (user_timedate_start)
+        print (user_timedate_end)
         user_date = user_timedate_start.date()
         guests = request.form['guests']
         free_tables_aisuma = read_from_db(user_timedate_start, user_timedate_end, user_date, "AiSuma%", guests)
@@ -130,17 +132,11 @@ def my_form_post():
 def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, guests):
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
-    c.execute("""
-     SELECT DISTINCT table_id FROM bord WHERE table_id LIKE ? AND chairs >= ? AND table_id NOT IN
-     (SELECT DISTINCT table_id FROM reservations WHERE db_booking_date LIKE ?)
-     UNION
-     SELECT
-     table_id FROM reservations WHERE
-     (? <= db_booking_start AND ? >= db_booking_start)
-     OR (? < db_booking_end AND ? >= db_booking_end)
-     OR (db_booking_start <= ? AND db_booking_end >= ?)
-     OR (? >= db_booking_start)
-     """, (restaurant, guests, user_date, user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_end, user_timedate_start, user_timedate_start, user_timedate_start))
+    c.execute('''
+    SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date = ? AND table_id NOT IN
+    (SELECT table_id from reservations WHERE (db_booking_start <= ?) and (? <= db_booking_end))
+    ''', (restaurant, user_date, user_timedate_end, user_timedate_start))
+
 
 
     data = c.fetchall()
