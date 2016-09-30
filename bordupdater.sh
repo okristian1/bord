@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /home/locrin/Documents/bord
-source bordenv/bin/activate
+cd /home/myproject
+source myprojectenv/bin/activate
 python clock.py
