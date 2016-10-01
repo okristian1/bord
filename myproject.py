@@ -133,9 +133,13 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     c.execute('''
-    SELECT * FROM reservations WHERE table_id LIKE ? AND db_booking_date = ? AND table_id NOT IN
+    SELECT distinct table_id from bord where table_id like ? and table_id not in
+    (select distinct table_id from reservations where db_booking_date = ?)
+    UNION
+    SELECT table_id FROM reservations WHERE table_id LIKE ? AND db_booking_date = ? AND table_id NOT IN
     (SELECT table_id from reservations WHERE (db_booking_start <= ?) and (? <= db_booking_end))
-    ''', (restaurant, user_date, user_timedate_end, user_timedate_start))
+    ''', (restaurant, user_date, restaurant, user_date, user_timedate_end, user_timedate_start))
+
 
 
 
