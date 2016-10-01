@@ -174,8 +174,8 @@ def delete_old():
 
 
 create_table()
-data_entry()
-add_new_reservations()
+#data_entry()
+#add_new_reservations()
 #delete_old()
 
 

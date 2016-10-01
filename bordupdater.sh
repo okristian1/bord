@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd /home/myproject
+cd /home/sammy/myproject
 source myprojectenv/bin/activate
 python clock.py
