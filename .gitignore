@@ -66,4 +66,4 @@ target/
 config.py
 
 # Database
-.db
+bookings.db
