@@ -140,12 +140,7 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
     (SELECT table_id from reservations WHERE (db_booking_start <= ?) and (? <= db_booking_end))
     ''', (restaurant, user_date, restaurant, user_date, user_timedate_end, user_timedate_start))
 
-
-
-
     data = c.fetchall()
-    for row in data:
-        print (row)
     return data
 
     c.close()
