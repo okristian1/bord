@@ -154,4 +154,4 @@ def read_from_db(user_timedate_start, user_timedate_end, user_date, restaurant, 
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
