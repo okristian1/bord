@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from fetch import *
 
 restaurant_list = get_info()
@@ -121,6 +121,7 @@ def add_new_reservations():
     conn.close()
 
 
+
 # Loops over all reservations in local database and deletes them if they are noe longer found in bookatables database.
 
 def delete_old():
@@ -169,9 +170,41 @@ def delete_old():
     c.close()
     conn.close()
 
+# Iterates over all restaurants over a timeperiod to identify all tables in restaurant.
+# We guess at chairs by keeping the largest recorded value up to a limit. Skip reservations with multiple tables
+def find_all_tables():
+    conn = sqlite3.connect('bookings.db')
+    c = conn.cursor()
+    for restaurant in restaurant_list:
+        for thing in restaurant:
+            for reservation in thing:
+                for i in reservation:
+                    for g in reservation.get('TableNrs'):
+                        if len(reservation.get('TableNrs')) < 2:
+                            restaurant = reservation.get('RestaurantName')
+                            # start_temp = (reservation.get('StartDateTime')[6:16])
+                            # db_booking_start = datetime.fromtimestamp(float(start_temp))
+                            # end_temp = (reservation.get('EndDateTime')[6:16])
+                            # db_booking_end = datetime.fromtimestamp(float(end_temp))
+                            # db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
+                            # customer = reservation.get('CustomerName')
+                            # new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
+                            chairs = reservation.get('NrOfGuest')
+                            table_id = restaurant + ' ' + str(reservation.get('TableNrs')[0])
+                        # update or insert query for every table and their chairs
+                            c.execute('''INSERT OR REPLACE INTO bord(table_id, chairs) VALUES(?,?)''', (table_id, chairs))
+                            conn.commit()
+                            print ("updating table.")
+                        else:
+                            pass
+                        # c.close()
+                        # conn.close()
+
+
 
 
 create_table()
+find_all_tables()
 #data_entry()
 #add_new_reservations()
 #delete_old()

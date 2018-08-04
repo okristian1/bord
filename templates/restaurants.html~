@@ -33,7 +33,8 @@
       </div>
       <p><a href="tel:{{ i['number'] }}"><span class="glyphicon glyphicon-earphone"></span><br>{{ i['number'] }}</a></p>
       <div class="project-name">
-          <!-- <button class="btn btn-primary btn-xl" data-toggle="modal" data-target="#{{ i['name'] }}">Reserver bord</button>
+          <button class="btn btn-primary btn-xl" data-toggle="modal" data-target="#{{ i['name'] }}">Reserver bord</button>
+          <!-- Modal -->
           <div class="modal fade" id="{{ i['name'] }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -45,12 +46,12 @@
                     <iframe src="{{ i['link'] }}"width="100%" height="480px" frameborder="0" allowtransparency="true"></iframe>
                 </div>
               </div>
+              <!-- /.modal-content -->
             </div>
-          </div> -->
-
-          <div class="modal-body">
-              <iframe src="{{ i['link'] }}"width="100%" height="480px" frameborder="0" allowtransparency="true"></iframe>
+            <!-- /.modal-dialog -->
           </div>
+          <!-- /.modal -->
+
 
 
 
