@@ -90,35 +90,34 @@ def add_new_reservations():
     for restaurant in restaurant_list:
         for thing in restaurant:
             for reservation in thing:
-                for i in reservation:
-                    for g in reservation.get('TableNrs'):
-                        while counter < len(reservation.get('TableNrs')):
-                            restaurant = reservation.get('RestaurantName')
-                            start_temp = (reservation.get('StartDateTime')[6:16])
-                            db_booking_start = datetime.fromtimestamp(float(start_temp))
-                            end_temp = (reservation.get('EndDateTime')[6:16])
-                            db_booking_end = datetime.fromtimestamp(float(end_temp))
-                            db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
-                            customer = reservation.get('CustomerName')
-                            pax = reservation.get('NrOfGuest')
-                            table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
-                            counter+=1
+                for table in reservation.get('TableNrs'):
+                    while counter < len(reservation.get('TableNrs')):
+                        restaurant = reservation.get('RestaurantName')
+                        start_temp = (reservation.get('StartDateTime')[6:16])
+                        db_booking_start = datetime.fromtimestamp(float(start_temp))
+                        end_temp = (reservation.get('EndDateTime')[6:16])
+                        db_booking_end = datetime.fromtimestamp(float(end_temp))
+                        db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
+                        customer = reservation.get('CustomerName')
+                        pax = reservation.get('NrOfGuest')
+                        table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
+                        new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
+                        counter+=1
 
-                            c.execute("SELECT table_id FROM reservations WHERE table_id=? AND db_booking_start = ? AND db_booking_end = ? AND pax = ? AND customer = ?",(table_id, db_booking_start, db_booking_end, pax, customer))
-                            #create new reservation if reservation in check but not in database
-                            data = c.fetchone()
-                            if data is None:
-                                print ("Creating new reservation.")
-                                c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer ) VALUES(?,?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer))
+                        c.execute("SELECT table_id FROM reservations WHERE table_id=? AND db_booking_start = ? AND db_booking_end = ? AND pax = ? AND customer = ?",(table_id, db_booking_start, db_booking_end, pax, customer))
+                        #create new reservation if reservation in check but not in database
+                        data = c.fetchone()
+                        if data is None:
+                            print ("Creating new reservation.")
+                            c.execute('''INSERT INTO reservations(table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer ) VALUES(?,?,?,?,?,?)''', (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer))
 
-                        else:
-                            pass
-                counter=0
+                    else:
+                        pass
+            counter=0
 
-            conn.commit()
-    c.close()
-    conn.close()
+        conn.commit()
+c.close()
+conn.close()
 
 
 
@@ -137,22 +136,21 @@ def delete_old():
     for restaurant in restaurant_list:
         for thing in restaurant:
             for reservation in thing:
-                for i in reservation:
-                    for g in reservation.get('TableNrs'):
-                        while counter < len(reservation.get('TableNrs')):
-                            restaurant = reservation.get('RestaurantName')
-                            start_temp = (reservation.get('StartDateTime')[6:16])
-                            db_booking_start = str(datetime.fromtimestamp(float(start_temp)))
-                            end_temp = (reservation.get('EndDateTime')[6:16])
-                            db_booking_end = str(datetime.fromtimestamp(float(end_temp)))
-                            db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
-                            customer = reservation.get('CustomerName')
-                            pax = reservation.get('NrOfGuest')
-                            table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
-                            new_reservation = (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer)
-                            new.append(new_reservation)
-                            counter+=1
-                counter = 0
+                for table in reservation.get('TableNrs'):
+                    while counter < len(reservation.get('TableNrs')):
+                        restaurant = reservation.get('RestaurantName')
+                        start_temp = (reservation.get('StartDateTime')[6:16])
+                        db_booking_start = str(datetime.fromtimestamp(float(start_temp)))
+                        end_temp = (reservation.get('EndDateTime')[6:16])
+                        db_booking_end = str(datetime.fromtimestamp(float(end_temp)))
+                        db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
+                        customer = reservation.get('CustomerName')
+                        pax = reservation.get('NrOfGuest')
+                        table_id = restaurant + ' ' + str(reservation.get('TableNrs')[counter])
+                        new_reservation = (table_id, db_booking_start, db_booking_end, db_booking_date, pax, customer)
+                        new.append(new_reservation)
+                        counter+=1
+            counter = 0
 
 
     c.execute('''SELECT id FROM reservations ORDER BY ROWID ASC LIMIT 1 ''')
@@ -176,39 +174,45 @@ def find_all_tables():
     conn = sqlite3.connect('bookings.db')
     c = conn.cursor()
     for restaurant in restaurant_list:
-        for thing in restaurant:
-            for reservation in thing:
-                for i in reservation:
-                    for g in reservation.get('TableNrs'):
-                        if len(reservation.get('TableNrs')) < 2:
-                            restaurant = reservation.get('RestaurantName')
-                            # start_temp = (reservation.get('StartDateTime')[6:16])
-                            # db_booking_start = datetime.fromtimestamp(float(start_temp))
-                            # end_temp = (reservation.get('EndDateTime')[6:16])
-                            # db_booking_end = datetime.fromtimestamp(float(end_temp))
-                            # db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
-                            # customer = reservation.get('CustomerName')
-                            # new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
-                            chairs = reservation.get('NrOfGuest')
-                            table_id = restaurant + ' ' + str(reservation.get('TableNrs')[0])
+        for object in restaurant:
+            for reservation in object:
+                for table in reservation.get('TableNrs'):
+                    if len(reservation.get('TableNrs')) < 2:
+                        restaurant = reservation.get('RestaurantName')
+                        # start_temp = (reservation.get('StartDateTime')[6:16])
+                        # db_booking_start = datetime.fromtimestamp(float(start_temp))
+                        # end_temp = (reservation.get('EndDateTime')[6:16])
+                        # db_booking_end = datetime.fromtimestamp(float(end_temp))
+                        # db_booking_date = datetime.fromtimestamp(int(start_temp)).strftime('%Y-%m-%d')
+                        # customer = reservation.get('CustomerName')
+                        # new_reservation = [table_id, db_booking_start, db_booking_end, pax, customer]
+                        pax = reservation.get('NrOfGuest')
+                        table_id = restaurant + ' ' + str(reservation.get('TableNrs')[0])
                         # update or insert query for every table and their chairs
-                            c.execute('''INSERT OR REPLACE INTO bord(table_id, chairs) VALUES(?,?)''', (table_id, chairs))
-                            conn.commit()
-                            print ("updating table.")
-                        else:
-                            pass
-                        # c.close()
-                        # conn.close()
+                        # c.execute('''INSERT OR REPLACE INTO bord(table_id, chairs) VALUES(?,?)''', (table_id, pax))
+                        # conn.commit()
+                        c.execute('''SELECT table_id, chairs from bord WHERE table_id = ?''', (table_id, ))
+                        conn.commit()
+                        data = c.fetchone()
+                        if data:
+                            if data[1] < pax:
+                                c.execute('''INSERT OR REPLACE INTO bord(table_id, chairs) VALUES(?,?)''', (table_id, pax))
+                            else:
+                                pass
+                    else:
+                        pass
+# c.close()
+# conn.close()
 
 
 
 
-create_table()
+#create_table()
 find_all_tables()
 #data_entry()
 #add_new_reservations()
 #delete_old()
 
 
-c.close()
-conn.close()
+# c.close()
+# conn.close()

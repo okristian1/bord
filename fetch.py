@@ -28,7 +28,7 @@ def get_info():
     reservations_sostrenekarlsen = []
     reservations_una = []
 
-    date = datetime.now().date() - timedelta(days=1)
+    date = datetime.now().date() - timedelta(days=300)
     for i in range(300):
         date += timedelta(days=1)
 
