@@ -79,7 +79,7 @@ def my_form_post():
             'id': "1",
             'name': "Frati",
             'logo': "static/media/img/logo_Frati",
-            'link': "https://frati.2book.se/Version4_67_250/public/Frati?selectappearance=AiSuma,LeBistro,NyeFrati,UnaPizzeria",
+            'link': "http://frati.2book.se/public/NyeFrati",
             'number': "735 25 733",
             'description': description_frati,
             'kart': "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7784.602155872907!2d10.392700778892342!3d63.429701070637456!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7f00e8dd6ee4efc!2sFrati+restaurant!5e0!3m2!1sno!2sno!4v1464689729492"})
